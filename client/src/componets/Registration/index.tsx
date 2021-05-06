@@ -14,7 +14,7 @@ const Registration = () => {
         <Title>Регистрация</Title>
         <Input value={email} setValue={setEmail} type="text" placeholder="Введите email"/>
         <Input value={password} setValue={setPassword} type="password" placeholder="Введите пароль"/>
-        <RadiusBtn type="primary" onClick={() => registration(email,password)}>Отправить</RadiusBtn>
+        <RadiusBtn type="primary" onClick={() => registration(email,password)}>Зарегистрироваться</RadiusBtn>
       </Wrap>
     </Container>
   );

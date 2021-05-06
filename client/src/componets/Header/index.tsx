@@ -1,10 +1,15 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { rootReducersType } from '../../redux/reducers';
+import { logout } from '../../redux/reducers/userReducer';
 
 
 function Header() {
   const location = useLocation();
+  const isAuth = useSelector((state: rootReducersType) => state.user.isAuth);
+  const dispatch = useDispatch();
 
   function isLocation(local: string) {
     return location.pathname.split('/')[1] === local;
@@ -19,7 +24,7 @@ function Header() {
         </NavLink>
       </Logo>
       <Login>
-        {
+        { !isAuth && (
           isLocation('login') ?
             <NavLink to="/login">
               <BottomLine>
@@ -29,17 +34,24 @@ function Header() {
             <NavLink to="/login">
               Вход
             </NavLink>
+        )
         }
-        {
-          isLocation('auth') ?
-            <NavLink to="/auth">
+        { !isAuth && (
+          isLocation('registration') ?
+            <NavLink to="/registration">
               <BottomLine>
                 Регистрация
               </BottomLine>
             </NavLink> :
-            <NavLink to="/auth">
+            <NavLink to="/registration">
               Регистрация
             </NavLink>
+        )
+        }
+        { isAuth &&
+          <NavLink to="/"  onClick={() => dispatch(logout())}>
+            Выход
+          </NavLink>
         }
       </Login>
     </Container>

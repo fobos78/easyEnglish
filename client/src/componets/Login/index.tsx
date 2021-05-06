@@ -1,17 +1,20 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { login } from '../../redux/actions/User';
 import Input from '../../utils/Input';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   return (
     <Container>
       <Wrap>
-        <Title>Вход</Title>
+        <Title>Авторизация</Title>
         <Input value={email} setValue={setEmail} type="text" placeholder="Введите email" />
         <Input
           value={password}
@@ -19,7 +22,7 @@ const Login = () => {
           type="password"
           placeholder="Введите пароль"
         />
-        <Radius type="primary">Отправить</Radius>
+        <RadiusBtn type="primary" onClick={() => dispatch(login(email, password))}>Войти</RadiusBtn>
       </Wrap>
     </Container>
   );
@@ -43,7 +46,7 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Radius = styled(Button)`
+const RadiusBtn = styled(Button)`
   border-radius: 4px;
 `;
 const Title = styled.div`
