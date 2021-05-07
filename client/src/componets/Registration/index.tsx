@@ -1,12 +1,22 @@
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { registration } from '../../redux/actions/User';
+import { login, registration } from '../../redux/actions/User';
 import Input from '../../utils/Input';
 
 const Registration = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(!isLogin){
+      return;
+    }
+    dispatch(login(email, password));
+  },[dispatch, isLogin, email, password])
 
   return (
     <Container>
@@ -14,7 +24,7 @@ const Registration = () => {
         <Title>Регистрация</Title>
         <Input value={email} setValue={setEmail} type="text" placeholder="Введите email"/>
         <Input value={password} setValue={setPassword} type="password" placeholder="Введите пароль"/>
-        <RadiusBtn type="primary" onClick={() => registration(email,password)}>Зарегистрироваться</RadiusBtn>
+        <RadiusBtn type="primary" onClick={async () => setIsLogin(await registration(email,password))}>Зарегистрироваться</RadiusBtn>
       </Wrap>
     </Container>
   );

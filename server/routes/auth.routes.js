@@ -17,19 +17,19 @@ router.post('/registration', [
         console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-          return res.json({message: 'Uncorect request'});
+          return res.json({flag: false, message: 'Uncorect request'});
         }
         const {email, password} = req.body;
         const candidat = await User.findOne({email});
         if (candidat) {
-          return res.json({message: `User whith email ${email} already exist`});
+          return res.json({flag: false, message: `User whith email ${email} already exist`});
         }
         const hashPassword = await bcrypt.hash(password, 5);
         const user = new User({email, password: hashPassword});
         await user.save();
-        return res.json({message: 'User was created'});
+        return res.json({flag: true, message: 'User was created'});
       } catch (error) {
-        res.send({message: 'Server error'});
+        res.send({flag: false,message: 'Server error'});
         throw  error;
       }
     },

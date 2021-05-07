@@ -24,7 +24,7 @@ function Header() {
         </NavLink>
       </Logo>
       <Login>
-        { !isAuth && (
+        {!isAuth && (
           isLocation('login') ?
             <NavLink to="/login">
               <BottomLine>
@@ -36,7 +36,7 @@ function Header() {
             </NavLink>
         )
         }
-        { !isAuth && (
+        {!isAuth && (
           isLocation('registration') ?
             <NavLink to="/registration">
               <BottomLine>
@@ -48,10 +48,23 @@ function Header() {
             </NavLink>
         )
         }
-        { isAuth &&
-          <NavLink to="/"  onClick={() => dispatch(logout())}>
+        {isAuth &&
+        <>
+          {
+            isLocation('words') ?
+              <NavLink to="/words">
+                <BottomLine>
+                  Все слова
+                </BottomLine>
+              </NavLink> :
+              <NavLink to="/words">
+                Все слова
+              </NavLink>
+          }
+          <NavLink to="/" onClick={() => dispatch(logout())}>
             Выход
           </NavLink>
+        </>
         }
       </Login>
     </Container>
@@ -68,7 +81,7 @@ const Container = styled.div`
           justify-content: space-between;
           align-items: center;
           border: 1px solid black;
-          margin-bottom: 5px;
+          margin-bottom: 2px;
           `;
 const Logo = styled.div`
           width: 15%;
