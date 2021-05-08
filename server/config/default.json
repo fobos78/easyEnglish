@@ -1,5 +1,5 @@
 {
-  "serverPort": 5000,
+  "serverPort": 80,
   "dbUrl": "mongodb+srv://fobos78:Mars2502@easy.p28lt.mongodb.net/easyEnlish?retryWrites=true&w=majority",
   "secretKey": "mern-sekret-key"
 }

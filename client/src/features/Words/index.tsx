@@ -1,29 +1,20 @@
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getWords } from '../../redux/actions/Word';
+import { rootReducersType } from '../../redux/reducers';
 
 
 const Words = () => {
   const [index, setIndex] = useState(0);
-  const [arrWords, setArrWords] = useState([]);
+  const dispatch = useDispatch();
+  const arrWords = useSelector((state: rootReducersType) => state.words.words);
 
   useEffect(() => {
-    async function requestWords() {
-      try {
-        const response = await axios.get('http://localhost:5000/api/word/words');
-        const wordsAll = response.data.words;
-        const words = wordsAll.map((el: any) => el.description);
-        setArrWords(words);
-      }
-      catch (error) {
-        throw error;
-      }
-    }
-
-    requestWords();
-  }, []);
+    dispatch(getWords());
+  },[dispatch]);
 
   function handlePrev() {
     if (index === 0) {

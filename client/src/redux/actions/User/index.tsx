@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { REACT_APP_API_URL } from '../../../config';
 import { setUser } from '../../reducers/userReducer';
 import { message } from 'antd';
 
 export  const login = (email: string, password: string) => {
   return async (dispatch: any) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login',{
+      const response = await axios.post(`${REACT_APP_API_URL}/api/auth/login`,{
         email,
         password
       });
@@ -21,7 +22,7 @@ export  const login = (email: string, password: string) => {
 
 export  const registration = async  (email: string, password: string) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/auth/registration',{
+    const response = await axios.post(`${REACT_APP_API_URL}/api/auth/registration`,{
       email,
       password
     });
@@ -36,7 +37,10 @@ export  const registration = async  (email: string, password: string) => {
 export  const auth = () => {
   return async (dispatch: any) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/auth',
+      console.log('window.location.origin',window.location.origin);
+      console.log('window.origin',window.origin);
+      console.log('REACT_APP_API_URL',REACT_APP_API_URL);
+      const response = await axios.get(`${REACT_APP_API_URL}/api/auth/auth`,
         {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       dispatch(setUser(response.data.user));
       localStorage.setItem('token', response.data.token);
