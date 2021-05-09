@@ -1,7 +1,6 @@
 const Router = require('express');
 const router = new Router();
 const Word = require('../models/Word');
-const authMiddleware = require('../middleware/auth.middleware');
 
 router.get(
     '/words',

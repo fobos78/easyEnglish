@@ -48,8 +48,32 @@ function Header() {
             </NavLink>
         )
         }
-        {isAuth &&
-        <>
+      </Login>
+      {isAuth &&
+      <>
+        <Options>
+          {
+            isLocation('newword') ?
+              <NavLink to="/newword">
+                <BottomLine>
+                  Добавить слово
+                </BottomLine>
+              </NavLink> :
+              <NavLink to="/newword">
+                Добавить слово
+              </NavLink>
+          }
+          {
+            isLocation('userwords') ?
+              <NavLink to="/userwords">
+                <BottomLine>
+                  Ваши слова
+                </BottomLine>
+              </NavLink> :
+              <NavLink to="/userwords">
+                Ваши слова
+              </NavLink>
+          }
           {
             isLocation('words') ?
               <NavLink to="/words">
@@ -61,12 +85,16 @@ function Header() {
                 Все слова
               </NavLink>
           }
+        </Options>
+        <Login>
+          <Output>
           <NavLink to="/" onClick={() => dispatch(logout())}>
             Выход
           </NavLink>
-        </>
-        }
-      </Login>
+          </Output>
+        </Login>
+      </>
+      }
     </Container>
   );
 }
@@ -93,6 +121,21 @@ const Logo = styled.div`
           `;
 const Login = styled.div`
           width: 15%;
+          height: 44px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-right: 30px;
+          `;
+const Output = styled.div`
+          width: 100%;
+          height: 44px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          `;
+const Options = styled.div`
+          width: 30%;
           height: 44px;
           display: flex;
           justify-content: space-between;

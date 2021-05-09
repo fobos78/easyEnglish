@@ -3,7 +3,7 @@ import { REACT_APP_API_URL } from '../../../config';
 import { setWords } from '../../reducers/wordReeducer';
 import { message } from 'antd';
 
-export  const getWords = () => {
+export const getWords = () => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(`${REACT_APP_API_URL}/api/word/words`,
@@ -13,6 +13,34 @@ export  const getWords = () => {
       dispatch(setWords(words));
     }catch(error){
       message.info(error.response.data.message);
+      throw error;
+    }
+  }
+}
+
+export const getUserWords = () => {
+  return async (dispatch: any) => {
+    try {
+      const response = await axios.get(`${REACT_APP_API_URL}/api/word/userwords`,
+        {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      const wordsAll = response.data.words;
+      // здесь нужно отсортировать слова принадлежащие тольео пользователю
+      const words = wordsAll.map((el: any) => el.description);
+      dispatch(setWords(words));
+    }catch(error){
+      message.info('В разработке');
+      throw error;
+    }
+  }
+}
+
+export const setWord = () => {
+  return async (dispatch: any) => {
+    try {
+      const response = await axios.get(`${REACT_APP_API_URL}/api/word/newword`,
+        {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+    }catch(error){
+      message.info('В разработке');
       throw error;
     }
   }
