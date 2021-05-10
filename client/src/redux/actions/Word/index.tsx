@@ -34,14 +34,14 @@ export const getUserWords = () => {
   }
 }
 
-export const setWord = () => {
-  return async (dispatch: any) => {
+export const setWord = async (description: string) => {
     try {
-      const response = await axios.get(`${REACT_APP_API_URL}/api/word/newword`,
-        {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      const response = await axios.post(`${REACT_APP_API_URL}/api/word/newword`,{
+        description,
+        access: false
+      },{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
+      message.info(response.data.message);
     }catch(error){
-      message.info('В разработке');
-      throw error;
+      message.info(error.response.data.message);
     }
   }
-}

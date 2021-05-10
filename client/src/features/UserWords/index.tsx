@@ -35,22 +35,22 @@ const UserWords = () => {
   return (
     <Container>
       <div>Сдесь должны быть только слова созданные пользователем(в разработке)</div>
-      <Wrap>
-        <Title>
-          {arrWords[index]}
-        </Title>
-        <Btns>
-          <RadiusBtn
-            type="primary"
-            onClick={() => handlePrev()}
-          ><CaretLeftOutlined />Пред.</RadiusBtn>
-          {index + 1}{' '}из{' '}{arrWords.length}
-          <RadiusBtn
-            type="primary"
-            onClick={() => handleNext()}
-          >След.<CaretRightOutlined /></RadiusBtn>
-        </Btns>
-      </Wrap>
+      {/*<Wrap>*/}
+      {/*  <Title>*/}
+      {/*    {arrWords[index]}*/}
+      {/*  </Title>*/}
+      {/*  <Btns>*/}
+      {/*    <RadiusBtn*/}
+      {/*      type="primary"*/}
+      {/*      onClick={() => handlePrev()}*/}
+      {/*    ><CaretLeftOutlined />Пред.</RadiusBtn>*/}
+      {/*    {index + 1}{' '}из{' '}{arrWords.length}*/}
+      {/*    <RadiusBtn*/}
+      {/*      type="primary"*/}
+      {/*      onClick={() => handleNext()}*/}
+      {/*    >След.<CaretRightOutlined /></RadiusBtn>*/}
+      {/*  </Btns>*/}
+      {/*</Wrap>*/}
     </Container>
   );
 };

@@ -17,7 +17,7 @@ router.post('/registration', [
         console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-          return res.json({flag: false, message: 'Uncorect request'});
+          return res.json({flag: false, message: errors.errors[0].msg});
         }
         const {email, password} = req.body;
         const candidat = await User.findOne({email});

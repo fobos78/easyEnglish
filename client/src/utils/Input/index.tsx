@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { Input as InputAntd } from 'antd';
 
 interface InputProps {
   type: string;
@@ -12,7 +13,7 @@ const Input: FC<InputProps> = ({type, placeholder, value, setValue}) => {
   return (
     <Container>
       <Wrap>
-        <input onChange={(event) => setValue(event.target.value)} value={value} type={type} placeholder={placeholder} />
+        <WrapInput size={90} onChange={(event) => setValue(event.target.value)} value={value} type={type} placeholder={placeholder} />
       </Wrap>
     </Container>
   );
@@ -32,4 +33,7 @@ const Container = styled.div`
 `;
 const Wrap = styled.div`
   margin-left: 5px;
+`;
+const WrapInput = styled.input`
+  width: 100%;
 `;

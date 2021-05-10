@@ -17,4 +17,19 @@ router.get(
     },
 );
 
+router.post(
+    '/newword',
+    async (req, res) => {
+      try {
+        const {description, access} = req.body;
+        const word = new Word({description, access});
+        await word.save();
+        return res.send({message: 'Word was created'})
+      } catch (error) {
+        res.send({message: 'Server error'});
+        throw  error;
+      }
+    },
+);
+
 module.exports = router;
