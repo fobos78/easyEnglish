@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Input as InputAntd } from 'antd';
+// import { Input as InputAntd } from 'antd';
 
 interface InputProps {
   type: string;

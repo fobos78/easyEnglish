@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { rootReducersType } from '../../redux/reducers';
+import { closeError } from '../../redux/reducers/errorReducer';
 import { logout } from '../../redux/reducers/userReducer';
 
 
@@ -19,31 +20,31 @@ function Header() {
     <Container>
 
       <Logo>
-        <NavLink to="/">
+        <NavLink to="/" onClick={() => dispatch(closeError())}>
           Easy English
         </NavLink>
       </Logo>
       <Login>
         {!isAuth && (
           isLocation('login') ?
-            <NavLink to="/login">
-              <BottomLine>
+            <NavLink to="/login" onClick={() => dispatch(closeError())}>
+              <BottomLine >
                 Вход
               </BottomLine>
             </NavLink> :
-            <NavLink to="/login">
+            <NavLink to="/login" onClick={() => dispatch(closeError())}>
               Вход
             </NavLink>
         )
         }
         {!isAuth && (
           isLocation('registration') ?
-            <NavLink to="/registration">
-              <BottomLine>
+            <NavLink to="/registration" onClick={() => dispatch(closeError())}>
+              <BottomLine >
                 Регистрация
               </BottomLine>
             </NavLink> :
-            <NavLink to="/registration">
+            <NavLink to="/registration" onClick={() => dispatch(closeError())}>
               Регистрация
             </NavLink>
         )
@@ -54,41 +55,41 @@ function Header() {
         <Options>
           {
             isLocation('newword') ?
-              <NavLink to="/newword">
-                <BottomLine>
+              <NavLink to="/newword" onClick={() => dispatch(closeError())}>
+                <BottomLine >
                   Добавить слово
                 </BottomLine>
               </NavLink> :
-              <NavLink to="/newword">
+              <NavLink to="/newword" onClick={() => dispatch(closeError())}>
                 Добавить слово
               </NavLink>
           }
           {
             isLocation('userwords') ?
-              <NavLink to="/userwords">
-                <BottomLine>
+              <NavLink to="/userwords" onClick={() => dispatch(closeError())}>
+                <BottomLine >
                   Ваши слова
                 </BottomLine>
               </NavLink> :
-              <NavLink to="/userwords">
+              <NavLink to="/userwords" onClick={() => dispatch(closeError())}>
                 Ваши слова
               </NavLink>
           }
           {
             isLocation('words') ?
-              <NavLink to="/words">
+              <NavLink to="/words" onClick={() => dispatch(closeError())}>
                 <BottomLine>
                   Все слова
                 </BottomLine>
               </NavLink> :
-              <NavLink to="/words">
+              <NavLink to="/words" onClick={() => dispatch(closeError())}>
                 Все слова
               </NavLink>
           }
         </Options>
         <Login>
           <Output>
-          <NavLink to="/" onClick={() => dispatch(logout())}>
+          <NavLink to="/" onClick={() => {dispatch(logout());dispatch(closeError())}}>
             Выход
           </NavLink>
           </Output>
