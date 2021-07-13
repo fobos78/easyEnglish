@@ -8,6 +8,7 @@ import MainPage from '../features/MainPage';
 import NewWord from '../features/NewWord';
 import UserWords from '../features/UserWords';
 import Words from '../features/Words';
+import SearchWord from '../features/SearchWord';
 import { rootReducersType } from '../redux/reducers';
 
 
@@ -15,8 +16,7 @@ const Routes = () => {
   const isAuth = useSelector((state: rootReducersType) => state.user.isAuth);
 
   return (
-    <>
-      {!isAuth ?
+      !isAuth ?
         <Switch>
           <Route exact path='/login'>
             <Login />
@@ -38,12 +38,13 @@ const Routes = () => {
           <Route exact path='/newword'>
             <NewWord />
           </Route>
+          <Route exact path='/search_word'>
+            <SearchWord />
+          </Route>
           <Route path='/'>
             <MainPage />
           </Route>
         </Switch>
-      }
-    </>
   );
 };
 

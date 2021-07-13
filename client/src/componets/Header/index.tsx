@@ -54,6 +54,17 @@ function Header() {
       <>
         <Options>
           {
+            isLocation('search_word') ?
+              <NavLink to="/search_word" onClick={() => dispatch(closeError())}>
+                <BottomLine >
+                  Поиск
+                </BottomLine>
+              </NavLink> :
+              <NavLink to="/search_word" onClick={() => dispatch(closeError())}>
+                Поиск
+              </NavLink>
+          }
+          {
             isLocation('newword') ?
               <NavLink to="/newword" onClick={() => dispatch(closeError())}>
                 <BottomLine >
