@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Login from '../componets/Login';
 import Registration from '../componets/Registration';
@@ -16,32 +16,33 @@ const Routes = () => {
 
   return (
     <>
-      <Switch>
-        <Route exact path='/'>
-          <MainPage />
-        </Route>
-
-        <Route exact path='/words'>
-          <Words />
-        </Route>
-        <Route exact path='/userwords'>
-          <UserWords />
-        </Route>
-        <Route exact path='/newword'>
-          <NewWord />
-        </Route>
-        {!isAuth &&
-        <>
+      {!isAuth ?
+        <Switch>
           <Route exact path='/login'>
             <Login />
           </Route>
           <Route exact path='/registration'>
             <Registration />
           </Route>
-        </>
-        }
-        <Redirect to={'/'} />
-      </Switch>
+          <Route path='/'>
+            <MainPage />
+          </Route>
+        </Switch> :
+        <Switch>
+          <Route exact path='/words'>
+            <Words />
+          </Route>
+          <Route exact path='/userwords'>
+            <UserWords />
+          </Route>
+          <Route exact path='/newword'>
+            <NewWord />
+          </Route>
+          <Route path='/'>
+            <MainPage />
+          </Route>
+        </Switch>
+      }
     </>
   );
 };

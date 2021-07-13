@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { setWord } from '../../redux/actions/Word';
+import { addWord } from '../../redux/actions/Word';
 import Input from '../../utils/Input';
 
 const NewWord = () => {
@@ -13,7 +13,10 @@ const NewWord = () => {
         <Title>Введите слово с описанием</Title>
         <Input value={description} setValue={setDescription} type="text" placeholder=""/>
         <TitleDescript>Пример: bruise - синяк, - представьте БРЮСа Вилюса с синяком</TitleDescript>
-        <RadiusBtn type="primary" onClick={async () => setWord(description)}>Отправить</RadiusBtn>
+        <RadiusBtn type="primary" onClick={async () => {
+          await setDescription('');
+          await addWord(description);
+        }}>Отправить</RadiusBtn>
       </Wrap>
     </Container>
 

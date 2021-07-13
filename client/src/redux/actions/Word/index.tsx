@@ -34,13 +34,13 @@ export const getUserWords = () => {
   }
 }
 
-export const setWord = async (description: string) => {
+export const addWord = async (description: string) => {
     try {
       const response = await axios.post(`${REACT_APP_API_URL}/api/word/newword`,{
         description,
         access: false
       },{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
-      message.info(response.data.message);
+      await message.info(response.data.message);
     }catch(error){
       message.info(error.response.data.message);
     }
