@@ -20,6 +20,7 @@ const Routes = () => {
         <Route exact path='/'>
           <MainPage />
         </Route>
+
         <Route exact path='/words'>
           <Words />
         </Route>

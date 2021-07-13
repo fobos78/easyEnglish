@@ -37,18 +37,12 @@ export  const registration = async  (email: string, password: string) => {
 export  const auth = () => {
   return async (dispatch: any) => {
     try {
-      console.log('window.location.origin',window.location.origin);
-      console.log('window.origin',window.origin);
-      console.log('REACT_APP_API_URL',REACT_APP_API_URL);
       const response = await axios.get(`${REACT_APP_API_URL}/api/auth/auth`,
         {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       dispatch(setUser(response.data.user));
       localStorage.setItem('token', response.data.token);
-      // console.log(response.data);
     }catch(error){
-      // alert(error.response.data.message);
       localStorage.removeItem('token');
-      // message.info(error.response.data.message);
       throw error;
     }
   }

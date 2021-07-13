@@ -16,7 +16,6 @@ function App() {
   const errorIsOpen = useSelector(
     (state: rootReducersType) => state.error.isOpen
   );
-  console.log("errorIsOpen", errorIsOpen);
 
   useEffect(() => {
     dispatch(auth());
@@ -29,7 +28,6 @@ function App() {
         const errors = [404, 403, 502];
         if (errors.includes(error.response.status)) {
           dispatch(setError(error.response));
-          console.log("errorIsOpen2", errorIsOpen);
           message.config({
             top: -100,
           });
