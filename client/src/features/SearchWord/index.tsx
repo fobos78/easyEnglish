@@ -28,10 +28,10 @@ const SearchWord = () => {
           />
           <SelectSearch>
             {arrWords.map((word: string) => {
-              if (word.indexOf(description) !== -1) {
+              if (word.indexOf(description.toLowerCase()) !== -1) {
                 return (
-                <div key={Math.random()}>
-                  {word}
+                <div key={Math.random()} onClick={() => setDescription(word)}>
+                  <span style={{color:'blue'}}>Описание:</span>{word}
                   </div>)
               } else {
                 return null;
@@ -72,7 +72,7 @@ const SelectWord = styled.div`
   align-items: center;
 `;
 const SelectSearch = styled.div`
-  width: 70%;
+  width: 40%;
   height: 250px;
   display: flex;
   flex-direction: column;
