@@ -6,16 +6,28 @@ import Input from '../../utils/Input';
 
 const NewWord = () => {
   const [description, setDescription] = useState('');
+  const [wordEn, setWordEn] = useState('');
+  const [wordRus, setWordRus] = useState('');
+
+
 
   return (
     <Container>
       <Wrap>
-        <Title>Введите слово с описанием</Title>
-        <Input value={description} setValue={setDescription} type="text" placeholder=""/>
+        <Title>Введите слово с описанием и переводом</Title>
+        <TitleDescript>Слово на англиском</TitleDescript>
+        <Input value={wordEn} setValue={setWordEn} type="text" placeholder="bruise"/>
+        <TitleDescript>Описание</TitleDescript>
+        <Input value={description} setValue={setDescription} type="text" placeholder="представьте БРЮСа Вилюса с синяком"/>
+        <TitleDescript>Слово на русском</TitleDescript>
+        <Input value={wordRus} setValue={setWordRus} type="text" placeholder="синяк"/>
         <TitleDescript>Пример: bruise - синяк, - представьте БРЮСа Вилюса с синяком</TitleDescript>
         <RadiusBtn type="primary" onClick={async () => {
-          await setDescription('');
-          await addWord(description);
+          const data = {wordEn, description, wordRus}
+          await addWord(data);
+          setDescription('');
+          setWordEn('');
+          setWordRus('');
         }}>Отправить</RadiusBtn>
       </Wrap>
     </Container>
@@ -50,5 +62,6 @@ font-size: 1.5rem;
 margin-bottom: 10px;
 `;
 const TitleDescript = styled(Title)`
+margin-top: 10px;
 font-size: 1.2rem;
 `;
