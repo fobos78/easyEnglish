@@ -25,6 +25,18 @@ function Header() {
         </NavLink>
       </Logo>
       <Login>
+      {!isAuth && (
+          isLocation('login') ?
+            <NavLink to="/game" onClick={() => dispatch(closeError())}>
+              <BottomLine >
+                Игра
+              </BottomLine>
+            </NavLink> :
+            <NavLink to="/game" onClick={() => dispatch(closeError())}>
+              Игра
+            </NavLink>
+        )
+        }
         {!isAuth && (
           isLocation('login') ?
             <NavLink to="/login" onClick={() => dispatch(closeError())}>

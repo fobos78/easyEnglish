@@ -21,8 +21,9 @@ router.post(
     '/newword',
     async (req, res) => {
       try {
-        const {description, access} = req.body;
-        const word = new Word({description, access});
+        const {data, access} = req.body;
+        const {wordEn, description, wordRus} = data;
+        const word = new Word({wordEn, description, wordRus, access});
         await word.save();
         return res.send({message: 'Word was created'})
       } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import useWindowSize from "../../hooks/useWindowSize";
 import { rootReducersType } from "../../redux/reducers";
 // import ExamplesWords from "../ExamplesWords";
@@ -8,47 +9,43 @@ import { rootReducersType } from "../../redux/reducers";
 interface coord {
   x: number;
   y: number;
+  a: number;
+  b: number;
 }
 
 const MainPage = () => {
   const isAuth = useSelector((state: rootReducersType) => state.user.isAuth);
   const { height, width } = useWindowSize();
-  const [coordinates, setCoordinates] = useState<coord>({ x: 60, y: 10 });
-  const [a, setA] = useState(2);
-  const [b, setB] = useState(2);
+  const [coordinates, setCoordinates] = useState<coord>({ x: 60, y: 10, a: 2, b: 2 });
 
   function pause(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  useEffect(() => {
-    async function go(ms: number) {
-      await pause(ms);
-
-      if (coordinates.x > height - 260) {
-        setA(-2);
-        return setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }));
-      }
-      if (coordinates.x < 180) {
-        setA(2);
-        return setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }));
-      }
-      if (coordinates.y > width - 180) {
-        setB(-2);
-        return setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }));
-      }
-      if (coordinates.y < 150) {
-        setB(2);
-        return setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }));
-      }
-      setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }));
+  const go = useCallback(async () => {
+    await pause(50);
+    if (coordinates.x > height - 260) {
+      setCoordinates((prev) => ({ x: prev.x + prev.a, y: prev.y + prev.b, a: -2, b: prev.b }));
+      return ;
     }
-    go(50);
-    // .then(() =>
-    //   setCoordinates((prev) => ({ x: prev.x + a, y: prev.y + b }))
-    // );
-    return;
-  }, [coordinates, height, width]);
+    if (coordinates.x < 180) {
+      setCoordinates((prev) => ({ x: prev.x + prev.a, y: prev.y + prev.b, a: 2, b: prev.b }))
+      return ;
+    }
+    if (coordinates.y > width - 180) {
+      setCoordinates((prev) => ({ x: prev.x + prev.a, y: prev.y + prev.b, a: prev.a, b: -2 }))
+      return ;
+    }
+    if (coordinates.y < 150) {
+      setCoordinates((prev) => ({ x: prev.x + prev.a, y: prev.y + prev.b, a: prev.a, b: 2 }))
+      return ;
+    }
+    setCoordinates((prev) => ({ x: prev.x + prev.a, y: prev.y + prev.b, a: prev.a, b: prev.b }));
+  },[coordinates,width,height]);
+
+  useEffect(() => {
+    go();
+  }, [go]);
 
   return (
     <Container>
@@ -93,8 +90,8 @@ const Container = styled.div`
   height: 600px;
   border-radius: 4px;
   position: absolute;
-  background: linear-gradient(rgba(0,0,0,0.7),
-         rgba(0,0,0,0.6)), url("./img/2.jpg");
+  background: linear-gradient(rgba(0,0,0,0.5),
+         rgba(0,0,0,0.7)), url("./img/2.jpg");
   background-size: 100% 100%;
   background-position: center;
   display: flex;
