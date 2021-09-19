@@ -13,7 +13,9 @@ const SearchWord = () => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
-  const arrWords = useSelector((state: rootReducersType) => state.words.words);
+  const arrDescriptions = useSelector((state: rootReducersType) => state.words.description);
+  const arrWordsEn = useSelector((state: rootReducersType) => state.words.wordEn);
+  const arrWordsRus = useSelector((state: rootReducersType) => state.words.wordRus);
 
   const showModalCustom = (word: string) => {
     setDescription(word);
@@ -22,6 +24,7 @@ const SearchWord = () => {
 
   const hideModalCustom = () => {
     setIsModalVisible(false);
+    setDescription('');
   };
 
   useEffect(() => {
@@ -62,23 +65,25 @@ const SearchWord = () => {
             placeholder=""
           />
             <CloseCircle><CloseCircleOutlined
-              // style={{top:'-100px'}}
               onClick={() => setDescription('')}
             />
             </CloseCircle>
-            {/*<Button onClick={() => setDescription('')}>X</Button>*/}
           </WrapInput>
           <SelectSearch>
-            {arrWords.map((word: string) => {
-              if (word.indexOf(description.toLowerCase()) !== -1) {
+            {
+            arrDescriptions.map((word: string, i: number) => {
+              const searchWord = arrWordsEn[i] + ' ' + word + ' ' + arrWordsRus[i];
+              if (searchWord.indexOf(description.toLowerCase()) !== -1) {
                 return (
-                  <Word key={Math.random()} onClick={() => showModalCustom(word)}>
-                    <span style={{ color: 'blue' }}>Описание:</span>{word}
+                  <Word key={Math.random()} onClick={() => showModalCustom(searchWord)}>
+                    <span><span style={{ color: 'blue' }}>Слово -&nbsp;</span>{arrWordsEn[i]}&nbsp;</span>
+                    <span><span style={{ color: 'blue' }}>перевод -&nbsp;</span>{arrWordsRus[i]}</span>
                   </Word>);
               } else {
                 return null;
               }
-            })}
+            })
+            }
           </SelectSearch>
         </SelectWord>
       </Wrap>
@@ -129,12 +134,12 @@ const SelectWord = styled.div`
 `;
 
 const Word = styled.div`
-  width: 95%;
+  min-width: 95%;
   padding: 5px 5px;
   margin-top: 3px;
   border-radius: 2px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   border: 1px solid black;
   cursor: pointer;

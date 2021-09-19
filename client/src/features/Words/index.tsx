@@ -10,7 +10,7 @@ import { rootReducersType } from '../../redux/reducers';
 const Words = () => {
   const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
-  const arrWords = useSelector((state: rootReducersType) => state.words.words);
+  const arrWords = useSelector((state: rootReducersType) => state.words.description);
 
   useEffect(() => {
     dispatch(getWords());

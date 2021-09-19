@@ -4,23 +4,19 @@ import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import useWindowSize from "../../hooks/useWindowSize";
 import { rootReducersType } from "../../redux/reducers";
+import pause from "../../function/pause";
 // import ExamplesWords from "../ExamplesWords";
 
-interface coord {
-  x: number;
-  y: number;
-  a: number;
-  b: number;
-}
-
 const MainPage = () => {
+  interface coord {
+    x: number;
+    y: number;
+    a: number;
+    b: number;
+  }
   const isAuth = useSelector((state: rootReducersType) => state.user.isAuth);
   const { height, width } = useWindowSize();
   const [coordinates, setCoordinates] = useState<coord>({ x: 60, y: 10, a: 2, b: 2 });
-
-  function pause(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 
   const go = useCallback(async () => {
     await pause(50);

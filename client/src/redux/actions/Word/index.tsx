@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { REACT_APP_API_URL } from '../../../config';
-import { setWords } from '../../reducers/wordReeducer';
+import { setDescriptions, setWordsEn, setWordsRus } from '../../reducers/wordReeducer';
 import { message } from 'antd';
 
 export const getWords = () => {
@@ -9,9 +9,14 @@ export const getWords = () => {
       const response = await axios.get(`${REACT_APP_API_URL}/api/word/words`,
         {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       const wordsAll = response.data.words;
-      const words = wordsAll.map((el: any) => el.description);
-      dispatch(setWords(words));
-    }catch(error){
+      const descriptions = wordsAll.map((el: any) => el.description);
+      const wordsEn = wordsAll.map((el: any) => el.wordEn);
+      const wordsRus = wordsAll.map((el: any) => el.wordRus);
+      console.log('wordsEn, descriptions, wordsRus',wordsEn,descriptions,wordsRus);
+      dispatch(setDescriptions(descriptions));
+      dispatch(setWordsEn(wordsEn));
+      dispatch(setWordsRus(wordsRus));
+    }catch(error: any){
       message.info(error.response.data.message);
       throw error;
     }
@@ -25,8 +30,8 @@ export const getUserWords = () => {
         {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       const wordsAll = response.data.words;
       // здесь нужно отсортировать слова принадлежащие тольео пользователю
-      const words = wordsAll.map((el: any) => el.description);
-      dispatch(setWords(words));
+      const descriptions = wordsAll.map((el: any) => el.description);
+      dispatch(setDescriptions(descriptions));
     }catch(error){
       message.info('В разработке');
       throw error;
@@ -47,7 +52,7 @@ export const addWord = async (data: wordData) => {
         access: false
       },{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}});
       await message.info(response.data.message);
-    }catch(error){
+    }catch(error: any){
       message.info(error.response.data.message);
     }
   }

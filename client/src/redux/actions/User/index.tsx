@@ -13,7 +13,7 @@ export  const login = (email: string, password: string) => {
       dispatch(setUser(response.data.user));
       localStorage.setItem('token', response.data.token);
       // console.log(response.data);
-    }catch(error){
+    }catch(error: any){
       message.info(error.response.data.message);
       // alert(error.response.data.message);
     }
@@ -28,7 +28,7 @@ export  const registration = async  (email: string, password: string) => {
     });
     message.info(response.data.message);
     return response.data.flag;
-  }catch(error){
+  }catch(error: any){
     message.info(error.response.data.message);
     return error.response.data.flag;
   }
